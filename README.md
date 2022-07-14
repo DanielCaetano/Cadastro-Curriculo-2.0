@@ -11,13 +11,21 @@ O candidato deverá ser capaz de cadastrar seu currículo com as seguintes infor
 através de um formulário.
 
 - Nome
-- CPF
+
+- *CPF*
+
+  ○ O campo deverá aceitar apenas valores **válidos**
+
 - Data de Nascimento
+
 - Telefone
+
 - Escolaridade, deverá ser uma lista com as seguintes opções
   ○ Analfabeto, Fundamental Completo, Médio Incompleto, Médio Completo,
   Superior Incompleto, Superior Completo, Mestrado, Doutorado, Ignorado
+  
 - Função
+
 - Lista de Competências;
   ○ Cada competência deverá ter uma descrição e o nível de proficiência do
   candidato.
@@ -39,3 +47,22 @@ abaixo:
   (Aguardando, Aprovado, Reprovado).
   Obs: A área administrativa deverá ser protegida por login, no entanto não é necessário
   implementar a autenticação real.
+
+**Requisitos técnicos**
+
+- Front: Angular ou React, fique a vontade para escolher a lib de componentes visuais
+  de sua preferência;
+- Back: Node ou Java + Spring;
+- Persistência: fique a vontade para escolher, entre bancos relacionais e NoSql;
+- O layout é livre, uma interface organizada e responsiva será um diferencial;
+- A aplicação deverá ser disponibilizada no github, faça commits organizados e
+  simples, é recomendado a utilização de branches para implementar as features do
+  sistema;
+- Instruções de como rodar a aplicação.
+
+**O que será avaliado**
+
+- Conhecimento da stack escolhida;
+- Funcionamento correto da aplicação;
+- Composição/reutilização de componentes;
+- Boas práticas de programação.
