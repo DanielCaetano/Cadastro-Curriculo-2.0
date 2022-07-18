@@ -1,56 +1,66 @@
 package com.daniel.curriculospring.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.daniel.curriculospring.model.CandidatoModel;
-//import com.daniel.curriculospring.repository.CandidatoRepository;
-import com.daniel.curriculospring.repository.CandidatoRepository;
+import com.daniel.curriculospring.service.CandidatoService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/candidato")
 @AllArgsConstructor
 public class CandidatoController {
     @Autowired
-    private final CandidatoRepository candidatoRepository;
-    
+    private final CandidatoService candidatoService;
 
-    /*
-       @GetMapping("/candidato")
-     * public List<CandidatoModel> list(){
-     * var c1 = new CandidatoModel();
-     * c1.setId(1L);
-     * c1.setNome("Daniel");
-     * c1.setEmail("Daniel@email");
-     * c1.setEscolaridade("Incompleto");
-     * 
-     * var c2 = new CandidatoModel();
-     * c2.setId(2L);
-     * c2.setNome("Flavio");
-     * c2.setEmail("flavio@email");
-     * c2.setEscolaridade("Completo");
-     * 
-     * return Arrays.asList(c1, c2);
-     * }
-     */
-
-    @GetMapping("/candidato")
+    @GetMapping
     public List<CandidatoModel> listar() {
-        return candidatoRepository.findAll();
+        return candidatoService.listar();
     }
-    @GetMapping("/candidato/cpf/{cpf}")
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CandidatoModel> buscar_id(@PathVariable Long id) {
+        return candidatoService.buscar_id(id);
+    }
+
+    @GetMapping("/cpf/{cpf}")
     public CandidatoModel buscar_cpf(@PathVariable String cpf) {
-        return candidatoRepository.findByCpf(cpf).get(0);
+        return candidatoService.buscar_cpf(cpf);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<CandidatoModel> buscar_status(@PathVariable String status) {
+        return candidatoService.buscar_status(status);
+    }
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public CandidatoModel adicionar(@RequestBody CandidatoModel candidato) {
+        return candidatoService.adicionar(candidato);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CandidatoModel> atualizar(@PathVariable Long id,
+            @RequestBody CandidatoModel candidato) {
+        return candidatoService.atualizar(id, candidato);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CandidatoModel> deletar(@PathVariable Long id){
+        return candidatoService.delete(id);
     }
 }
