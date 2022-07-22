@@ -27,10 +27,9 @@ declare var google: any;
 @Component({
   selector: 'app-admin-buscar',
   templateUrl: './admin-buscar.component.html',
-  styleUrls: ['./admin-buscar.component.css']
+  styleUrls: ['./admin-buscar.component.css'],
 })
 export class AdminBuscarComponent implements OnInit {
-
   candidatos: Observable<Candidato[]>;
   displayedColumns = ['nome', 'status', 'actions'];
   dataSource: MatTableDataSource<Candidato> | undefined;
@@ -43,6 +42,7 @@ export class AdminBuscarComponent implements OnInit {
   dadosEscolaridade!: number[];
 
   private dados: any;
+  private graficoPie: GraficoPie = new GraficoPie(this.candidatoService);
 
   constructor(
     private candidatoService: CandidatoService,
@@ -51,7 +51,6 @@ export class AdminBuscarComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
-    private graficoPie: GraficoPie
   ) {
     //this.candidatoService = new CandidatoServiceService();
     this.candidatos = this.candidatoService.listar().pipe(
@@ -62,43 +61,41 @@ export class AdminBuscarComponent implements OnInit {
     );
 
     this.form = this.formBuilder.group({
-      cpf: [
-        '',
-          Validators.compose([Validacoes.ValidaCpf])
-      ],
+      cpf: ['', Validators.compose([Validacoes.ValidaCpf])],
     });
+
+    this.graficoPie.startPie(['Aguardando', 'Aprovado', 'Reprovado']);
   }
 
   ngOnInit() {
-  	this.graficoPie.obterDados().subscribe(
-  		dados => {
-  			this.dados = dados;
-  			this.init();
-  		});
+    this.graficoPie.obterDados().subscribe((dados) => {
+      this.dados = dados;
+      this.init();
+    });
   }
 
   init(): void {
-    if(typeof(google) !== 'undefined') {
-      google.charts.load('current', {'packages':['corechart']});
+    if (typeof google !== 'undefined') {
+      google.charts.load('current', { packages: ['corechart'] });
       setTimeout(() => {
-      	google.charts.setOnLoadCallback(this.exibirGraficos());
+        google.charts.setOnLoadCallback(this.exibirGraficos());
       }, 1000);
     }
   }
 
   exibirGraficos(): void {
-  	this.exibirPieChart();
+    this.exibirPieChart();
   }
 
   exibirPieChart(): void {
-  	const el = document.getElementById('pie_chart');
+    const el = document.getElementById('pie_chart');
     const chart = new google.visualization.PieChart(el);
 
     chart.draw(this.obterDataTable(), this.obterOpcoes());
   }
 
   obterDataTable(): any {
-  	const data = new google.visualization.DataTable();
+    const data = new google.visualization.DataTable();
 
     data.addColumn('string', 'Mês');
     data.addColumn('number', 'Quantidade');
@@ -108,10 +105,10 @@ export class AdminBuscarComponent implements OnInit {
   }
 
   obterOpcoes(): any {
-  	return {
-    	'title': 'Quantidade de cadastros primeiro semestre',
-        'width': 400,
-        'height': 300
+    return {
+      title: 'Quantidade de cadastros primeiro semestre',
+      width: 400,
+      height: 300,
     };
   }
 
@@ -161,7 +158,7 @@ export class AdminBuscarComponent implements OnInit {
     this.router.navigate(['adm']);
   }
 
-  onBuscar(){
+  onBuscar() {
     console.log(this.form.value);
     this.candidatos = this.candidatoService.bucarCpf(this.form.value.cpf);
   }

@@ -4,9 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validacoes } from 'src/app/_util/validacoes';
-import { GraficoPie } from 'src/app/_util/dashboard/graficoPie';
 
-declare var google: any;
 @Component({
   selector: 'app-admin-cadastrar-candidato',
   templateUrl: './admin-cadastrar-candidato.component.html',
@@ -17,15 +15,14 @@ export class AdminCadastrarCandidatoComponent implements OnInit {
 
   form: FormGroup;
   //@ViewChild('formTarefa', { static: true }) formTarefa: NgForm;
-  private dados: any;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private candidatoService: CandidatoService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute,
-    private graficoPie: GraficoPie
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.compose([Validators.required])],
@@ -38,17 +35,7 @@ export class AdminCadastrarCandidatoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.graficoPie.obterDados().subscribe(
-  		dados => {
-  			this.dados = dados;
-  			this.init();
-  		});
-
-  }
-
-  init(): void {
-  }
+  ngOnInit(): void {  }
 
   onSubmit() {
     //if (this.formTarefa.form.valid) {
