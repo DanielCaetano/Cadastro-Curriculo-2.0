@@ -26,12 +26,21 @@ export class CandidatoService {
   }
 
   deletar(id:String){
-    return this.httpClient.delete<Candidato> (`{{this.API_PATH}}/{{id}}`)
+    return this.httpClient.delete<Candidato> (this.API_PATH + '/' + id)
   }
 
   bucarCpf(cpf: String){
     console.log(this.API_PATH+"/cpf/"+cpf);
     return this.httpClient.get<Candidato[]>(this.API_PATH+"/cpf/"+cpf)
+    .pipe(
+      first(),
+      tap(candidato => console.log(candidato))
+    );
+  }
+
+  bucarId(id: String){
+    console.log(this.API_PATH+"/"+id);
+    return this.httpClient.get<Candidato>(this.API_PATH+"/"+id)
     .pipe(
       first(),
       tap(candidato => console.log(candidato))
@@ -52,6 +61,14 @@ export class CandidatoService {
     .pipe(
       first(),
       tap(res => console.log("resultado:", res))
+    );
+  }
+
+  quantidadePor(label:String, tipo: String){
+    return this.httpClient.get<number>(this.API_PATH+"/"+tipo+"/"+label)
+    .pipe(
+      first(),
+      tap(res => console.log(tipo+" Label: "+label+" resultado:", res))
     );
   }
 }

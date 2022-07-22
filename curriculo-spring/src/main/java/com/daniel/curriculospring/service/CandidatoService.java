@@ -43,18 +43,23 @@ public class CandidatoService {
 
     public ResponseEntity<CandidatoModel> atualizar(Long id, CandidatoModel candidato) {
         if (!candidatoRepository.existsById(id)) {
+            System.out.println("id não encontrado atualizar");
             return ResponseEntity.notFound().build();
         }
+        System.out.println("atualizado");
         candidato.setId(id);
         return ResponseEntity.ok(
                 candidatoRepository.save(candidato));
+                
     }
 
     public ResponseEntity<CandidatoModel> delete(Long id){
         if (!candidatoRepository.existsById(id)) {
+            System.out.println("id não encontrado");
             return ResponseEntity.notFound().build();
         }
         candidatoRepository.deleteById(id);
+        System.out.println("ID deletado ");
         return ResponseEntity.noContent().build();
     }
 

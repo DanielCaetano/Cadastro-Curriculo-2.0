@@ -28,7 +28,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AdminBuscarComponent } from './administrador/admin-buscar/admin-buscar.component';
 import { AdminEditarCandidatoComponent } from './administrador/admin-editar-candidato/admin-editar-candidato.component';
 import { AdminCadastrarCandidatoComponent } from './administrador/admin-cadastrar-candidato/admin-cadastrar-candidato.component';
-import { GraficoPie } from './administrador/admin-buscar/graficoPie';
+import { GraficoPorTipo } from '../_util/dashboard/graficoPorTipo';
 
 
 @NgModule({
@@ -71,7 +71,7 @@ import { GraficoPie } from './administrador/admin-buscar/graficoPie';
     FooterComponent,
   ],
   providers:[
-    GraficoPie
+    GraficoPorTipo
   ]
 })
 export class ComponentsModule {}

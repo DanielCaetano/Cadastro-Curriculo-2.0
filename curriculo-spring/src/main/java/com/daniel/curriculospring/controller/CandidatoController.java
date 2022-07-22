@@ -56,12 +56,13 @@ public class CandidatoController {
     @PutMapping("/{id}")
     public ResponseEntity<CandidatoModel> atualizar(@PathVariable Long id,
             @RequestBody CandidatoModel candidato) {
-                
+        System.out.println("Atualizar candidato");
         return candidatoService.atualizar(id, candidato);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<CandidatoModel> deletar(@PathVariable Long id){
+        System.out.println("deletando candidato");
         return candidatoService.delete(id);
     }
 

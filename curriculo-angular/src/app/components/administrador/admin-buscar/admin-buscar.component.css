@@ -25,19 +25,19 @@ table{
 
 }
 
-.grafico{
-  border: 1px solid green;
+div{
+
   width: 40%;
   margin: 0 auto;
-  float:left;
   margin-left: 5%;
+  display: inline-block;
+  padding-top: 20px;
 }
-.chart{
-  border: 1px solid green;
-  width: 40%;
-  margin: 0 auto;
-  float:right;
-  margin-right: 5%;
+@media(max-width: 450px){
+  div{
+    display: block;
+  }
+
 }
 
 .title {
@@ -53,10 +53,6 @@ table{
 
 button {
   margin-bottom: .8rem;
-}
-
-.table {
-  width: 100%;
 }
 
 .edit {

@@ -1,9 +1,7 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { catchError, Observable, of, take, map, Subscription } from 'rxjs';
+import { catchError, Observable, of} from 'rxjs';
 import {
-  ChangeDetectorRef,
   Component,
-  ElementRef,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -20,7 +18,7 @@ import {
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validacoes } from 'src/app/_util/validacoes';
-import { GraficoPie } from 'src/app/components/administrador/admin-buscar/graficoPie';
+import { GraficoPorTipo } from 'src/app/_util/dashboard/graficoPorTipo';
 
 declare var google: any;
 
@@ -41,8 +39,11 @@ export class AdminBuscarComponent implements OnInit {
   dadosStatus: number[] = [];
   dadosEscolaridade!: number[];
 
-  private dados: any;
-  private graficoPie: GraficoPie = new GraficoPie(this.candidatoService);
+  private dadosPia: any;
+  private dadosBar: any;
+
+  private graficoPia = new GraficoPorTipo(this.candidatoService)
+  private graficoBar = new GraficoPorTipo(this.candidatoService)
 
   constructor(
     private candidatoService: CandidatoService,
@@ -50,9 +51,10 @@ export class AdminBuscarComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {
-    //this.candidatoService = new CandidatoServiceService();
+
+
     this.candidatos = this.candidatoService.listar().pipe(
       catchError((error) => {
         this.onError('Erro ao carregar lista de candidatos');
@@ -64,12 +66,28 @@ export class AdminBuscarComponent implements OnInit {
       cpf: ['', Validators.compose([Validacoes.ValidaCpf])],
     });
 
-    this.graficoPie.startPie(['Aguardando', 'Aprovado', 'Reprovado']);
+
   }
 
   ngOnInit() {
-    this.graficoPie.obterDados().subscribe((dados) => {
-      this.dados = dados;
+    this.graficoPia.start(['Aguardando', 'Aprovado', 'Reprovado'], 'status');
+    this.graficoPia.obterDados().subscribe((dados) => {
+      this.dadosPia = dados;
+      this.init();
+    });
+
+    this.graficoBar.start([
+      'Analfabeto',
+      'Fundamental Completo',
+      'Médio Incompleto',
+      'Médio Completo',
+      'Superior Incompleto',
+      'Superior Completo',
+      'Mestrado',
+      'Doutorado',
+    ], 'escolaridade');
+    this.graficoBar.obterDados().subscribe((dados) => {
+      this.dadosBar = dados;
       this.init();
     });
   }
@@ -85,40 +103,48 @@ export class AdminBuscarComponent implements OnInit {
 
   exibirGraficos(): void {
     this.exibirPieChart();
+    this.exibirBarChart();
   }
 
   exibirPieChart(): void {
     const el = document.getElementById('pie_chart');
     const chart = new google.visualization.PieChart(el);
 
-    chart.draw(this.obterDataTable(), this.obterOpcoes());
+    chart.draw(this.obterDataTablePie('Status', 'Quantidade'), this.obterOpcoes(400, 400));
   }
 
-  obterDataTable(): any {
+  exibirBarChart(): void {
+    const el = document.getElementById('bar_chart');
+    const chart = new google.visualization.BarChart(el);
+
+    chart.draw(this.obterDataTableBar('Escolaridade', 'Quantidade'), this.obterOpcoes(400, 450));
+  }
+
+  obterDataTablePie(c1:string, c2:string): any {
     const data = new google.visualization.DataTable();
-
-    data.addColumn('string', 'Mês');
-    data.addColumn('number', 'Quantidade');
-    data.addRows(this.dados);
-
+    data.addColumn('string', c1);
+    data.addColumn('number', c2);
+    data.addRows(this.dadosPia);
     return data;
   }
 
-  obterOpcoes(): any {
+  obterDataTableBar(c1:string, c2:string): any {
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', c1);
+    data.addColumn('number', c2);
+    data.addRows(this.dadosBar);
+    return data;
+  }
+
+  obterOpcoes(altura:number, comprimento:number): any {
     return {
-      title: 'Quantidade de cadastros primeiro semestre',
-      width: 400,
-      height: 300,
+      title: 'Quantidade de cadastros por status',
+      width: comprimento,
+      height: altura,
     };
   }
 
-  carregarEscolaridade(escolaridade: string) {
-    this.candidatoService
-      .quantidadePorEscolaridade(escolaridade)
-      .subscribe((res) => {
-        this.dadosEscolaridade.push(res);
-      });
-  }
+
 
   onError(errorMsg: String) {
     this.dialog.open(ErroDialogComponent, {
@@ -138,6 +164,7 @@ export class AdminBuscarComponent implements OnInit {
         this.onSuccess();
       },
       (error) => {
+        console.log("Não deu certo");
         console.log(error);
       }
     );

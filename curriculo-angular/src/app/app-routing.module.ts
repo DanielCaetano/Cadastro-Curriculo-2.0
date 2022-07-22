@@ -1,7 +1,12 @@
+import { AdminEditarCandidatoComponent } from './components/administrador/admin-editar-candidato/admin-editar-candidato.component';
 import { AdminCadastrarCandidatoComponent } from './components/administrador/admin-cadastrar-candidato/admin-cadastrar-candidato.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CandidatoBuscarComponent, CandidatoCadastroComponent, HomeComponent } from './components';
+import {
+  CandidatoBuscarComponent,
+  CandidatoCadastroComponent,
+  HomeComponent
+} from './components';
 import { AdminBuscarComponent } from './components/administrador';
 
 const routes: Routes = [
@@ -24,6 +29,10 @@ const routes: Routes = [
   {
     path:"adm/candidato",
     component: AdminCadastrarCandidatoComponent
+  },
+  {
+    path:"adm/editar/:id",
+    component: AdminEditarCandidatoComponent
   }
 ];
 
