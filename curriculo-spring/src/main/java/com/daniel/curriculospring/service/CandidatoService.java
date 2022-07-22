@@ -1,11 +1,13 @@
 package com.daniel.curriculospring.service;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.daniel.curriculospring.model.CandidatoModel;
+import com.daniel.curriculospring.model.StatusEntrega;
 import com.daniel.curriculospring.repository.CandidatoRepository;
 
 import lombok.AllArgsConstructor;
@@ -26,8 +28,8 @@ public class CandidatoService {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    public CandidatoModel buscar_cpf(String cpf) {
-        return candidatoRepository.findByCpf(cpf).get(0);
+    public List<CandidatoModel> buscar_cpf(String cpf) {
+        return candidatoRepository.findByCpf(cpf);
     }
 
     public List<CandidatoModel> buscar_status(String status) {
@@ -35,11 +37,12 @@ public class CandidatoService {
     }
 
     public CandidatoModel adicionar(CandidatoModel candidato) {
+        candidato.setStatusCandidato(StatusEntrega.Aguardando);
         return candidatoRepository.save(candidato);
     }
 
     public ResponseEntity<CandidatoModel> atualizar(Long id, CandidatoModel candidato) {
-        if (candidatoRepository.existsById(id)) {
+        if (!candidatoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         candidato.setId(id);
@@ -48,7 +51,7 @@ public class CandidatoService {
     }
 
     public ResponseEntity<CandidatoModel> delete(Long id){
-        if (candidatoRepository.existsById(id)) {
+        if (!candidatoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         candidatoRepository.deleteById(id);

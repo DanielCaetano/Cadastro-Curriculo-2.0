@@ -5,3 +5,20 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.card{
+  max-width: 90%;
+  margin: 1rem auto;
+}
+
+@media(max-width: 770px){
+  .card{
+    width: 90%;
+  }
+}
+
+@media(max-width: 450px){
+  .card{
+    width: 70%;
+  }
+}

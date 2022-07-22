@@ -38,7 +38,7 @@ public class CandidatoController {
     }
 
     @GetMapping("/cpf/{cpf}")
-    public CandidatoModel buscar_cpf(@PathVariable String cpf) {
+    public List<CandidatoModel> buscar_cpf(@PathVariable String cpf) {
         return candidatoService.buscar_cpf(cpf);
     }
 
@@ -56,6 +56,7 @@ public class CandidatoController {
     @PutMapping("/{id}")
     public ResponseEntity<CandidatoModel> atualizar(@PathVariable Long id,
             @RequestBody CandidatoModel candidato) {
+                
         return candidatoService.atualizar(id, candidato);
     }
 

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CandidatoBuscarComponent, CandidatoCadastroComponent, HomeComponent } from './components';
+import { AdminBuscarComponent } from './components/administrador';
 
 const routes: Routes = [
   {
@@ -14,7 +15,11 @@ const routes: Routes = [
 	{
 		path: "candidato/cadastro",
 		component: CandidatoCadastroComponent
-	}
+	},
+  {
+    path:"adm",
+    component: AdminBuscarComponent
+  }
 ];
 
 @NgModule({

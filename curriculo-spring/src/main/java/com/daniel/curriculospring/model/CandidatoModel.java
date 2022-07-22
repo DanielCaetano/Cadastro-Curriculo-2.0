@@ -2,10 +2,14 @@ package com.daniel.curriculospring.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,6 +24,7 @@ public class CandidatoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonProperty("_id")
     private Long id;
 
     @Column(name = "nome")
@@ -43,5 +48,9 @@ public class CandidatoModel {
     @Column(name = "funcao")
     private String funcao;
     
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    @JsonProperty("status")
+    private StatusEntrega statusCandidato;
 
 }

@@ -1,5 +1,18 @@
-.mat-card{
-  max-width: 95%;
+.home{
+  max-width: 90%;
+  margin: 1rem auto;
+}
+
+@media(max-width: 770px){
+  .home{
+    width: 90%;
+  }
+}
+
+@media(max-width: 450px){
+  .home{
+    width: 70%;
+  }
 }
 
 .card-header {
