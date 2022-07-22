@@ -1,5 +1,16 @@
 <mat-card class="content">
-  <mat-toolbar> candidatos</mat-toolbar>
+  <mat-card-title class="title">Consulta Candidatos</mat-card-title>
+
+  <mat-toolbar>
+    <form [formGroup]="form" class="form">
+      <mat-form-field class="full-width" appearance="fill">
+        <input class="imputCPF" matInput maxlength="35" placeholder="Cpf" formControlName="cpf" mask="000.000.000-00">
+      </mat-form-field>
+      <button mat-fab color="primary" aria-label="icon button searched" (click)="onBuscar()">
+        <mat-icon>searched</mat-icon>
+      </button>
+    </form>
+  </mat-toolbar>
 
   <table mat-table [dataSource]="candidatos" class="mat-elevation-z8">
     <!-- Nome Column -->

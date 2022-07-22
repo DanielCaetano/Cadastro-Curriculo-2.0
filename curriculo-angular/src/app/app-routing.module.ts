@@ -1,3 +1,4 @@
+import { AdminCadastrarCandidatoComponent } from './components/administrador/admin-cadastrar-candidato/admin-cadastrar-candidato.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CandidatoBuscarComponent, CandidatoCadastroComponent, HomeComponent } from './components';
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path:"adm",
     component: AdminBuscarComponent
+  },
+  {
+    path:"adm/candidato",
+    component: AdminCadastrarCandidatoComponent
   }
 ];
 

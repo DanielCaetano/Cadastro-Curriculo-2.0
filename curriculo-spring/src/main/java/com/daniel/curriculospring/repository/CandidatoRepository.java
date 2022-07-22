@@ -21,4 +21,10 @@ public interface CandidatoRepository extends JpaRepository<CandidatoModel, Long>
 
     @Query(value = "SELECT * FROM candidato WHERE status = :status", nativeQuery = true)
     public List<CandidatoModel> findByStatus(@Param("status") String status);
+
+    @Query(value = "select count(status) from colmeiacurriculo.candidato where status = :status ", nativeQuery = true)
+    public Long quantidadePorStatus(@Param("status")String status);
+
+    @Query(value = "select count(status) from colmeiacurriculo.candidato where escolaridade = :escolaridade ", nativeQuery = true)
+    public Long quantidadePorEscolaridade(@Param("escolaridade")String escolaridade);
 }

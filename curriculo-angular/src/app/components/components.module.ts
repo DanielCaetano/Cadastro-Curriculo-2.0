@@ -18,8 +18,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 
 
-
-
 import { HomeComponent } from './home';
 import { CandidatoBuscarComponent } from './candidato/candidato-buscar/candidato-buscar.component';
 import { CandidatoCadastroComponent } from './candidato/candidato-cadastro/candidato-cadastro.component';
@@ -60,7 +58,7 @@ import { AdminCadastrarCandidatoComponent } from './administrador/admin-cadastra
     MatButtonModule,
     NgxMaskModule.forChild(),
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
 
   ],
   exports: [

@@ -58,6 +58,12 @@ public class CandidatoService {
         return ResponseEntity.noContent().build();
     }
 
+    public Long quantidadePorStatus(String status){
+        return candidatoRepository.quantidadePorStatus(status);
+    }
 
+    public Long quantidadePorEscolaridade(String escolaridade){
+        return candidatoRepository.quantidadePorEscolaridade(escolaridade);
+    }
 
 }

@@ -42,10 +42,10 @@ public class CandidatoController {
         return candidatoService.buscar_cpf(cpf);
     }
 
-    @GetMapping("/status/{status}")
-    public List<CandidatoModel> buscar_status(@PathVariable String status) {
-        return candidatoService.buscar_status(status);
-    }
+    //@GetMapping("/status/{status}")
+    //public List<CandidatoModel> buscar_status(@PathVariable String status) {
+    //    return candidatoService.buscar_status(status);
+    //}
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
@@ -63,5 +63,17 @@ public class CandidatoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<CandidatoModel> deletar(@PathVariable Long id){
         return candidatoService.delete(id);
+    }
+
+    @GetMapping("/status/{status}")
+    public Long quantidadePorStatus(@PathVariable String status){
+        System.out.println("buscando status");
+        return candidatoService.quantidadePorStatus(status);
+    }
+
+    @GetMapping("/escolaridade/{escolaridade}")
+    public Long quantidadePorEscolaridade(@PathVariable String escolaridade){
+        System.out.println("buscando escolaridade");
+        return candidatoService.quantidadePorEscolaridade(escolaridade);
     }
 }

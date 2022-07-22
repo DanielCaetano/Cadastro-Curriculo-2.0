@@ -37,4 +37,21 @@ export class CandidatoService {
       tap(candidato => console.log(candidato))
     );
   }
+
+  quantidadePorStatus(status: String){
+    console.log(this.API_PATH+"/status/"+status);
+    return this.httpClient.get<number>(this.API_PATH+"/status/"+status)
+    .pipe(
+      first(),
+      tap(res => console.log("resultado:", res))
+    );
+  }
+
+  quantidadePorEscolaridade(escolaridade: String){
+    return this.httpClient.get<number>(this.API_PATH+"/escolaridade/"+escolaridade)
+    .pipe(
+      first(),
+      tap(res => console.log("resultado:", res))
+    );
+  }
 }
