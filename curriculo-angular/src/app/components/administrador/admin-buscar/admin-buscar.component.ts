@@ -15,7 +15,7 @@ import {
   MatTableDataSource,
   _MatTableDataSource,
 } from '@angular/material/table';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Validacoes } from 'src/app/_util/validacoes';
 import { GraficoPorTipo } from 'src/app/_util/dashboard/graficoPorTipo';
@@ -27,10 +27,12 @@ declare var google: any;
   templateUrl: './admin-buscar.component.html',
   styleUrls: ['./admin-buscar.component.css'],
 })
+
 export class AdminBuscarComponent implements OnInit {
   candidatos: Observable<Candidato[]>;
-  displayedColumns = ['nome', 'status', 'actions'];
-  dataSource: MatTableDataSource<Candidato> | undefined;
+  displayedColumns = ['nome', 'cpf', 'telefone', 'status', 'actions'];
+  dataSource= MatTableDataSource<Candidato>;
+
 
   form: FormGroup;
 
@@ -63,7 +65,7 @@ export class AdminBuscarComponent implements OnInit {
     );
 
     this.form = this.formBuilder.group({
-      cpf: ['', Validators.compose([Validacoes.ValidaCpf])],
+      cpf: [''],
     });
 
 
@@ -109,15 +111,14 @@ export class AdminBuscarComponent implements OnInit {
   exibirPieChart(): void {
     const el = document.getElementById('pie_chart');
     const chart = new google.visualization.PieChart(el);
-
-    chart.draw(this.obterDataTablePie('Status', 'Quantidade'), this.obterOpcoes(400, 400));
+    chart.draw(this.obterDataTablePie('Status', 'Quantidade'), this.obterOpcoes(400, 400, 'status'));
   }
 
   exibirBarChart(): void {
     const el = document.getElementById('bar_chart');
     const chart = new google.visualization.BarChart(el);
 
-    chart.draw(this.obterDataTableBar('Escolaridade', 'Quantidade'), this.obterOpcoes(400, 450));
+    chart.draw(this.obterDataTableBar('Escolaridade', 'Quantidade'), this.obterOpcoes(400, 400, 'escolaridade'));
   }
 
   obterDataTablePie(c1:string, c2:string): any {
@@ -136,15 +137,13 @@ export class AdminBuscarComponent implements OnInit {
     return data;
   }
 
-  obterOpcoes(altura:number, comprimento:number): any {
+  obterOpcoes(altura:number, comprimento:number, tipo:string): any {
     return {
-      title: 'Quantidade de cadastros por status',
+      title: "Quantidade de cadastros por "+tipo,
       width: comprimento,
       height: altura,
     };
   }
-
-
 
   onError(errorMsg: String) {
     this.dialog.open(ErroDialogComponent, {
@@ -186,7 +185,6 @@ export class AdminBuscarComponent implements OnInit {
   }
 
   onBuscar() {
-    console.log(this.form.value);
     this.candidatos = this.candidatoService.bucarCpf(this.form.value.cpf);
   }
 }

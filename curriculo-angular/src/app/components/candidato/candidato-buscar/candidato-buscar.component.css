@@ -18,3 +18,12 @@ mat-toolbar{
   width: 30%;
   padding-top: 1rem;
 }
+
+button{
+  margin-bottom: 1rem;
+}
+
+.mat-card {
+  background: #424242;
+  color: #fff;
+}

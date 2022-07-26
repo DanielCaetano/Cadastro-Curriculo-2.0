@@ -37,21 +37,28 @@ export class AdminCadastrarCandidatoComponent implements OnInit {
 
   ngOnInit(): void {  }
 
-  onSubmit() {
-    //if (this.formTarefa.form.valid) {
-      this.candidatoService.cadastrar(this.form.value).subscribe(
-        result => this.onSuccess(), error => this.onError());
-      this.router.navigate(['candidato']);
-   // }
-  }
+
 
   onCancel() {
-    this.router.navigate(['candidato']);
+    this.router.navigate(['adm']);
+  }
+
+  onSubmit() {
+    if(this.form.status=='INVALID'){
+      this.form.get('nome')?.markAllAsTouched()
+      this.form.get('cpf')?.markAllAsTouched()
+    }else{
+      this.candidatoService.cadastrar(this.form.value).subscribe(
+        result => this.onSuccess(), error => this.onError());
+      this.router.navigate(['adm']);
+    }
   }
 
   private onSuccess() {
+    //console.log(this.form.status)
     this.snackBar.open('Curso salvo com sucesso!', '', { duration: 5000 });
     this.onCancel();
+
   }
 
   private onError() {

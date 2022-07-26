@@ -29,6 +29,7 @@ import { AdminBuscarComponent } from './administrador/admin-buscar/admin-buscar.
 import { AdminEditarCandidatoComponent } from './administrador/admin-editar-candidato/admin-editar-candidato.component';
 import { AdminCadastrarCandidatoComponent } from './administrador/admin-cadastrar-candidato/admin-cadastrar-candidato.component';
 import { GraficoPorTipo } from '../_util/dashboard/graficoPorTipo';
+import { LoginComponent } from './administrador/login/login.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { GraficoPorTipo } from '../_util/dashboard/graficoPorTipo';
     AdminBuscarComponent,
     AdminEditarCandidatoComponent,
     AdminCadastrarCandidatoComponent,
+    LoginComponent,
 
   ],
   imports: [
@@ -59,8 +61,7 @@ import { GraficoPorTipo } from '../_util/dashboard/graficoPorTipo';
     MatButtonModule,
     NgxMaskModule.forChild(),
     MatSelectModule,
-    MatSnackBarModule,
-
+    MatSnackBarModule
   ],
   exports: [
     HomeComponent,
@@ -69,6 +70,7 @@ import { GraficoPorTipo } from '../_util/dashboard/graficoPorTipo';
     HeaderComponent,
     NavComponent,
     FooterComponent,
+    LoginComponent
   ],
   providers:[
     GraficoPorTipo

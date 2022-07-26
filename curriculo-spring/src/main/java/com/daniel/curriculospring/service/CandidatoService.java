@@ -3,6 +3,7 @@ package com.daniel.curriculospring.service;
 import java.io.Console;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,8 @@ public class CandidatoService {
     private CandidatoRepository candidatoRepository;
 
     public List<CandidatoModel> listar() {
-        return candidatoRepository.findAll();
+        Sort sort = Sort.by("id").descending();
+        return candidatoRepository.findAll(sort);
     }
 
     public ResponseEntity<CandidatoModel> buscar_id(Long id) {

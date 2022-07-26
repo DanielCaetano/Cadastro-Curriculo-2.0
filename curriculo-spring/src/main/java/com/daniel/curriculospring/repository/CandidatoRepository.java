@@ -3,6 +3,7 @@ package com.daniel.curriculospring.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +13,9 @@ import com.daniel.curriculospring.model.CandidatoModel;
 
 @Repository
 public interface CandidatoRepository extends JpaRepository<CandidatoModel, Long>{
+
+    List<CandidatoModel> findAll(Sort sort);
+
     List<CandidatoModel> findByNomeContaining(String nome);
 
     Optional<CandidatoModel> findById(Long id);

@@ -3,29 +3,45 @@
     <mat-card-title>Cadastrar candidato</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form #formTarefa="ngForm" [formGroup]="form" >
-      <mat-form-field hintLabel="Nome completo" appearance="fill" class="full-width">
-        <mat-label>Nome Completo</mat-label>
-        <input matInput #input maxlength="35" placeholder="Nome" formControlName="nome">
+    <form [formGroup]="form" >
+
+      <mat-error *ngIf="form.get('nome')?.valid && form.get('nome')?.touched" class="fort-text text-success">
+        OK
+      </mat-error>
+      <mat-error *ngIf="!form.get('nome')?.valid && form.get('nome')?.touched"class="fort-text text-danger">
+        Campo obrigatorio
+      </mat-error>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Nome Completo*</mat-label>
+        <input matInput #input maxlength="45" placeholder="Nome Completo" formControlName="nome">
       </mat-form-field>
 
+      <mat-error *ngIf="form.get('cpf')?.valid && form.get('cpf')?.touched" class="text-success">
+        OK
+      </mat-error>
+      <mat-error *ngIf="!form.get('cpf')?.valid && form.get('cpf')?.touched"class="text-danger">
+        Campo obrigatorio
+      </mat-error>
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>cpf</mat-label>
+        <mat-label>cpf*</mat-label>
         <input matInput #input maxlength="35" placeholder="CPF" formControlName="cpf" mask="000.000.000-00">
       </mat-form-field>
+
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Data nascimento</mat-label>
         <input matInput #input maxlength="35" placeholder="Data Nascimento" formControlName="data_nascimento" mask="d0/M0/0000">
       </mat-form-field>
 
+      <small *ngIf="form.get('email')?.valid && form.get('email')?.touched" class="fort-text text-success">OK</small>
+      <small *ngIf="!form.get('email')?.valid && form.get('email')?.touched"class="fort-text text-danger">Campo obrigatorio</small>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Email</mat-label>
         <input matInput #input maxlength="35" placeholder="Email" formControlName="email">
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>telefone</mat-label>
+        <mat-label>Telefone</mat-label>
         <input matInput #input maxlength="35" placeholder="telefone" formControlName="telefone" mask="(00) 00000-0000">
       </mat-form-field>
 
@@ -47,14 +63,17 @@
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Função</mat-label>
-        <input matInput #input maxlength="35" placeholder="Funcao" formControlName="funcao">
+        <input matInput #input maxlength="35" placeholder="Função" formControlName="funcao">
       </mat-form-field>
 
 
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="onSubmit()">Salvar</button>
+    <button
+      mat-raised-button
+     (click)="onSubmit()"
+     >Salvar</button>
     <button mat-button (click)="onCancel()">Cancelar</button>
   </mat-card-actions>
 </mat-card>

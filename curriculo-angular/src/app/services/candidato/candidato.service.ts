@@ -34,25 +34,34 @@ export class CandidatoService {
     return this.httpClient.get<Candidato[]>(this.API_PATH+"/cpf/"+cpf)
     .pipe(
       first(),
-      tap(candidato => console.log(candidato))
+      tap(candidato =>
+        candidato
+        //console.log(candidato)
+        )
     );
   }
 
   bucarId(id: String){
-    console.log(this.API_PATH+"/"+id);
+    //console.log(this.API_PATH+"/"+id);
     return this.httpClient.get<Candidato>(this.API_PATH+"/"+id)
     .pipe(
       first(),
-      tap(candidato => console.log(candidato))
+      tap(candidato =>
+        candidato
+        //console.log(candidato)
+        )
     );
   }
 
   quantidadePorStatus(status: String){
-    console.log(this.API_PATH+"/status/"+status);
+    //console.log(this.API_PATH+"/status/"+status);
     return this.httpClient.get<number>(this.API_PATH+"/status/"+status)
     .pipe(
       first(),
-      tap(res => console.log("resultado:", res))
+      tap(res =>
+        res
+        //console.log("resultado:", res)
+        )
     );
   }
 
@@ -60,7 +69,10 @@ export class CandidatoService {
     return this.httpClient.get<number>(this.API_PATH+"/escolaridade/"+escolaridade)
     .pipe(
       first(),
-      tap(res => console.log("resultado:", res))
+      tap(res =>
+        res
+        //console.log("resultado:", res)
+      )
     );
   }
 
@@ -68,7 +80,10 @@ export class CandidatoService {
     return this.httpClient.get<number>(this.API_PATH+"/"+tipo+"/"+label)
     .pipe(
       first(),
-      tap(res => console.log(tipo+" Label: "+label+" resultado:", res))
+      tap(res =>
+        res
+        //console.log(tipo+" Label: "+label+" resultado:", res)
+        )
     );
   }
 }

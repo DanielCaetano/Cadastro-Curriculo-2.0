@@ -7,13 +7,16 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .card{
-  max-width: 90%;
+  max-width: 100%;
   margin: 1rem auto;
+  background: #424242;
+  color: #fff;
 }
 
 @media(max-width: 770px){
   .card{
     width: 90%;
+
   }
 }
 

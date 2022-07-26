@@ -11,3 +11,15 @@ mat-card{
   width: 100%;
   min-width: 150px;
 }
+
+.text-success{
+  color: green;
+  text-align: end;
+  float: left;
+}
+
+.text-danger{
+  padding: 0;
+  color: red;
+  float: left;
+}

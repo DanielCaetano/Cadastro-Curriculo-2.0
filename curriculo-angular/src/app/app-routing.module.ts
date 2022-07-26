@@ -8,6 +8,7 @@ import {
   HomeComponent
 } from './components';
 import { AdminBuscarComponent } from './components/administrador';
+import { LoginComponent } from './components/administrador/login/login.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path:"adm",
     component: AdminBuscarComponent
+  },
+  {
+    path:"adm/login",
+    component: LoginComponent
   },
   {
     path:"adm/candidato",
