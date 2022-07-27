@@ -1,8 +1,3 @@
-mat-card{
-  max-width: 80%;
-  margin: 2em auto;
-  text-align: center;
-}
 .full-width{
   width: 100%;
 }
@@ -14,12 +9,37 @@ mat-card{
 
 .text-success{
   color: green;
-  text-align: end;
-  float: left;
+  text-align: initial;
+
 }
 
 .text-danger{
   padding: 0;
   color: red;
-  float: left;
+  text-align: initial;
+
 }
+
+.width-45{
+  width: 45%;
+}
+
+.cpf{
+  display: block;
+}
+.data{
+  margin-left: 3rem;
+}
+.linha {
+  display: inline-flex;
+  width: 100%;
+}
+
+.escolaridade{
+  display: block;
+  margin-left: 3rem;
+}
+.telefone{
+  display: block;
+}
+

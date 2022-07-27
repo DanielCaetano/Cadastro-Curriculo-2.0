@@ -4,7 +4,7 @@ import { AbstractControl } from "@angular/forms";
 export class Validacoes {
   static ValidaCpf(controle: AbstractControl) {
     const cpf = controle.value;
-
+    console.log("CPF: "+cpf)
     let soma: number = 0;
     let resto: number;
     let valido: boolean;
@@ -50,14 +50,24 @@ export class Validacoes {
 
   static MaiorQue18Anos(controle: AbstractControl) {
     const nascimento = controle.value;
-    const [ano, mes, dia] = nascimento.split('-');
+    console.log("DATA: "+nascimento)
+    const dia = nascimento[0]+nascimento[1]
+    const mes = nascimento[2]+nascimento[3]
+    const ano = nascimento[4]+nascimento[5]+nascimento[6]+nascimento[7]
+    console.log("DIA "+dia+" mes: "+mes+" ano: "+ano)
     const hoje = new Date();
-    const dataNascimento = new Date(ano, mes, dia, 0, 0, 0);
-    const tempoParaTeste = 1000 * 60 * 60 * 24 * 365 * 18; //18 anos em mili segundos...
+    const dataNascimento = new Date(ano, mes, dia, 1, 1, 1);
+    const tempoParaTeste = 1000 * 60 * 60 * 24 * 365 * 100; //18 anos em mili segundos...
+    //const tempoLimite = 1000 * 60 * 60 * 24 * 365 * 18;
+    //console.log("Tempo hoje: "+hoje.getTime())
+    //console.log("Data Nascimento: "+dataNascimento.getTime())
+    //console.log("Tempo do teste "+tempoParaTeste)
+    //console.log("Tempo hoje: "+(hoje.getTime() - dataNascimento.getTime()))
 
-    if (hoje.getTime() - dataNascimento.getTime() >= tempoParaTeste)
+    if ((hoje.getTime() - dataNascimento.getTime() >= -2657837769) && (hoje.getTime() - dataNascimento.getTime() <= tempoParaTeste)){
+    //console.log("IDADE: "+(hoje.getTime() - dataNascimento.getTime()))
       return null;
-
+    }
     return { menorDeIdade: true };
   }
 }

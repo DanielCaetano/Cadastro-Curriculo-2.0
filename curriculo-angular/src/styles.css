@@ -7,10 +7,18 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .card{
-  max-width: 100%;
+  max-width: 90%;
   margin: 1rem auto;
   background: #424242;
   color: #fff;
+}
+.acoes{
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 @media(max-width: 770px){

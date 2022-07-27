@@ -111,14 +111,15 @@ export class AdminBuscarComponent implements OnInit {
   exibirPieChart(): void {
     const el = document.getElementById('pie_chart');
     const chart = new google.visualization.PieChart(el);
-    chart.draw(this.obterDataTablePie('Status', 'Quantidade'), this.obterOpcoes(400, 400, 'status'));
+    chart.draw(this.obterDataTablePie('Status', 'Quantidade'), this.obterOpcoesPie(400, 400, 'status'));
   }
 
   exibirBarChart(): void {
     const el = document.getElementById('bar_chart');
-    const chart = new google.visualization.BarChart(el);
+    const chart = new google.visualization.ColumnChart(el);
 
-    chart.draw(this.obterDataTableBar('Escolaridade', 'Quantidade'), this.obterOpcoes(400, 400, 'escolaridade'));
+    chart.draw(this.obterDataTableBar('Escolaridade', 'Quantidade'),
+    this.obterOpcoes(400, 500, 'escolaridade'));
   }
 
   obterDataTablePie(c1:string, c2:string): any {
@@ -135,6 +136,15 @@ export class AdminBuscarComponent implements OnInit {
     data.addColumn('number', c2);
     data.addRows(this.dadosBar);
     return data;
+  }
+
+  obterOpcoesPie(altura:number, comprimento:number, tipo:string): any {
+    return {
+      title: "Quantidade de cadastros por "+tipo,
+      width: comprimento,
+      height: altura,
+      'is3D':true,
+    };
   }
 
   obterOpcoes(altura:number, comprimento:number, tipo:string): any {
