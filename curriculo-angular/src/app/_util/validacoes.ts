@@ -50,11 +50,11 @@ export class Validacoes {
 
   static MaiorQue18Anos(controle: AbstractControl) {
     const nascimento = controle.value;
-    console.log("DATA: "+nascimento)
+    //console.log("DATA: "+nascimento)
     const dia = nascimento[0]+nascimento[1]
     const mes = nascimento[2]+nascimento[3]
     const ano = nascimento[4]+nascimento[5]+nascimento[6]+nascimento[7]
-    console.log("DIA "+dia+" mes: "+mes+" ano: "+ano)
+    //console.log("DIA "+dia+" mes: "+mes+" ano: "+ano)
     const hoje = new Date();
     const dataNascimento = new Date(ano, mes, dia, 1, 1, 1);
     const tempoParaTeste = 1000 * 60 * 60 * 24 * 365 * 100; //18 anos em mili segundos...

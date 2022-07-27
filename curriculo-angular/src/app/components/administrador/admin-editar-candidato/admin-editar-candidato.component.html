@@ -1,57 +1,171 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Atualizar candidato</mat-card-title>
-  </mat-card-header>
+<mat-card class="card">
+  <mat-card-title class="title"><h1>Atualizar candidato</h1></mat-card-title>
   <mat-card-content>
     <form [formGroup]="form">
-
-      <div class="form-group" [ngClass]="aplicaCssErro('nome')"></div>
-      <mat-form-field hintLabel="Nome completo" appearance="fill" class="full-width">
-        <mat-label>Nome Completo</mat-label>
-        <input matInput #input [(ngModel)]="candidato.nome" maxlength="35" placeholder="Nome" formControlName="nome">
-      </mat-form-field>
-
-
+      <mat-error
+        *ngIf="form.get('nome')?.valid && form.get('nome')?.touched"
+        class="fort-text text-success"
+      >
+        OK
+      </mat-error>
+      <mat-error
+        *ngIf="!form.get('nome')?.valid && form.get('nome')?.touched"
+        class="fort-text text-danger"
+      >
+        Nome obrigatorio
+      </mat-error>
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label for="cpf">cpf</mat-label>
-        <input matInput #input [(ngModel)]="candidato.cpf" maxlength="35" placeholder="CPF" formControlName="cpf" mask="000.000.000-00">
+        <mat-label>Nome Completo*</mat-label>
+        <input matInput #input [(ngModel)]="candidato.nome" maxlength="45" placeholder="Nome Completo" formControlName="nome">
       </mat-form-field>
 
+      <div class="linha">
+        <div class="cpf width-45">
+          <mat-error
+            *ngIf="form.get('cpf')?.valid && form.get('cpf')?.touched"
+            class="text-success"
+          >
+            OK
+          </mat-error>
+          <mat-error
+            *ngIf="!form.get('cpf')?.valid && form.get('cpf')?.touched"
+            class="text-danger"
+          >
+            Cpf obrigatorio
+          </mat-error>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>cpf*</mat-label>
+            <input matInput #input [(ngModel)]="candidato.cpf" maxlength="15"
+            placeholder="CPF" formControlName="cpf" mask="000.000.000-00">
+          </mat-form-field>
+        </div>
+
+        <div class="data width-45">
+          <mat-error
+            *ngIf="
+              form.get('data_nascimento')?.valid &&
+              form.get('data_nascimento')?.touched
+            "
+            class="text-success"
+          >
+            OK
+          </mat-error>
+          <small
+            *ngIf="
+              !form.get('data_nascimento')?.valid &&
+              form.get('data_nascimento')?.touched
+            "
+            class="text-danger"
+            >Data obrigatorio</small
+          >
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Data nascimento*</mat-label>
+            <input matInput #input [(ngModel)]="candidato.data_nascimento"
+             maxlength="8" placeholder="Data Nascimento" formControlName="data_nascimento"
+             mask="d0-M0-0000">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <small
+        *ngIf="form.get('email')?.valid && form.get('email')?.touched"
+        class="text-success"
+        >OK</small
+      >
+      <small
+        *ngIf="!form.get('email')?.valid && form.get('email')?.touched"
+        class="text-danger"
+        >Email obrigatorio</small
+      >
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Data nascimento</mat-label>
-        <input matInput #input [(ngModel)]="candidato.data_nascimento" maxlength="35" placeholder="Data Nascimento" formControlName="data_nascimento">
+        <mat-label>Email*</mat-label>
+        <input matInput #input [(ngModel)]="candidato.email" maxlength="35"
+        placeholder="Email" formControlName="email">
       </mat-form-field>
 
+      <div class="linha">
+        <div class="telefone width-45">
+          <mat-error
+            *ngIf="form.get('telefone')?.valid && form.get('telefone')?.touched"
+            class="text-success"
+          >
+            OK
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !form.get('telefone')?.valid && form.get('telefone')?.touched
+            "
+            class="text-danger"
+          >
+            Telefone obrigatorio
+          </mat-error>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Telefone*</mat-label>
+            <input matInput #input [(ngModel)]="candidato.telefone" maxlength="11"
+            placeholder="telefone" formControlName="telefone" mask="(00) 00000-0000">
+          </mat-form-field>
+        </div>
+        <div class="escolaridade width-45">
+          <mat-error
+            *ngIf="
+              form.get('escolaridade')?.valid &&
+              form.get('escolaridade')?.touched
+            "
+            class="text-success"
+          >
+            OK
+          </mat-error>
+          <mat-error
+            *ngIf="
+              !form.get('escolaridade')?.valid &&
+              form.get('escolaridade')?.touched
+            "
+            class="text-danger"
+          >
+            Escolaridade obrigatorio
+          </mat-error>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Escolaridade*</mat-label>
+            <mat-select formControlName="escolaridade" [(ngModel)]="candidato.escolaridade" >
+              <mat-option value="Analfabeto">Analfabeto</mat-option>
+              <mat-option value="Fundamental Completo">Fundamental Completo</mat-option>
+              <mat-option value="Médio Incompleto">Médio Incompleto</mat-option>
+              <mat-option value="Médio Completo">Médio Completo</mat-option>
+              <mat-option value="Superior Incompleto">Superior Incompleto</mat-option>
+              <mat-option value="Superior Completo">Superior Completo</mat-option>
+              <mat-option value="Mestrado">Mestrado</mat-option>
+              <mat-option value="Mestrado">Doutorado</mat-option>
+              <mat-option value="Mestrado">Ignorado</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-error
+        *ngIf="form.get('funcao')?.valid && form.get('funcao')?.touched"class="text-success">
+        OK
+      </mat-error>
+      <mat-error
+        *ngIf="
+          !form.get('funcao')?.valid && form.get('funcao')?.touched"class="text-danger">
+        Função obrigatorio
+      </mat-error>
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Email</mat-label>
-        <input matInput #input [(ngModel)]="candidato.email" maxlength="35" placeholder="Email" formControlName="email">
+        <mat-label>Função*</mat-label>
+        <input matInput #input [(ngModel)]="candidato.funcao" maxlength="35"
+        placeholder="Funcao" formControlName="funcao">
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>telefone</mat-label>
-        <input matInput #input [(ngModel)]="candidato.telefone" maxlength="35" placeholder="telefone" formControlName="telefone">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Escolaridade</mat-label>
-        <mat-select formControlName="escolaridade" [(ngModel)]="candidato.escolaridade" >
-          <mat-option value="Analfabeto">Analfabeto</mat-option>
-          <mat-option value="Fundamental Completo">Fundamental Completo</mat-option>
-          <mat-option value="Médio Incompleto">Médio Incompleto</mat-option>
-          <mat-option value="Médio Completo">Médio Completo</mat-option>
-          <mat-option value="Superior Incompleto">Superior Incompleto</mat-option>
-          <mat-option value="Superior Completo">Superior Completo</mat-option>
-          <mat-option value="Mestrado">Mestrado</mat-option>
-          <mat-option value="Mestrado">Doutorado</mat-option>
-          <mat-option value="Mestrado">Ignorado</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Função</mat-label>
-        <input matInput #input [(ngModel)]="candidato.funcao" maxlength="35" placeholder="Funcao" formControlName="funcao">
-      </mat-form-field>
-
+      <mat-error
+        *ngIf="form.get('status')?.valid && form.get('status')?.touched"class="text-success">
+        OK
+      </mat-error>
+      <mat-error
+        *ngIf="
+          !form.get('status')?.valid && form.get('status')?.touched"class="text-danger">
+        Função obrigatorio
+      </mat-error>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Status</mat-label>
         <mat-select formControlName="status" [(ngModel)]="candidato.status" >
@@ -60,13 +174,11 @@
           <mat-option value="Reprovado">Reprovado</mat-option>
         </mat-select>
       </mat-form-field>
-
-
     </form>
   </mat-card-content>
-  <mat-card-actions>
-    <button type="submit" name="submit">Enviar</button>
-    <button mat-raised-button (click)="atualizar()">Salvar</button>
-    <button mat-button (click)="onCancel()">Cancelar</button>
+
+  <mat-card-actions class="acoes">
+    <button class="sucesso" mat-raised-button (click)="atualizar()">Atualizar</button>
+    <button class="cancelar"mat-button (click)="onCancel()">Cancelar</button>
   </mat-card-actions>
 </mat-card>

@@ -9,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-admin-editar-candidato',
   templateUrl: './admin-editar-candidato.component.html',
-  styleUrls: ['./admin-editar-candidato.component.css']
+  styleUrls: ['./admin-editar-candidato.component.css'],
 })
 export class AdminEditarCandidatoComponent implements OnInit {
-
   form: FormGroup;
   isLoggedIn: boolean = true;
 
@@ -36,16 +35,20 @@ export class AdminEditarCandidatoComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
-      nome: ['',
-     Validators.compose([Validators.required, Validators.minLength(5)])],
-      cpf: ['',
-      Validators.compose([Validators.required, Validacoes.ValidaCpf])],
-      data_nascimento: [null],
-      email: [null],
-      telefone: [null],
-      escolaridade: [null],
-      funcao: [null],
-      status: [null]
+      nome: ['', Validators.compose([Validators.required])],
+      cpf: [
+        '',
+        Validators.compose([Validators.required, Validacoes.ValidaCpf]),
+      ],
+      data_nascimento: ['', Validators.compose([Validacoes.MaiorQue18Anos])],
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      telefone: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(11)]),
+      ],
+      escolaridade: ['', Validators.compose([Validators.required])],
+      funcao: ['', Validators.compose([Validators.required])],
+      status: ['', Validators.compose([Validators.required])],
     });
   }
   get cpf() {
@@ -68,23 +71,33 @@ export class AdminEditarCandidatoComponent implements OnInit {
         telefone: this.candidato.telefone,
         escolaridade: this.candidato.escolaridade,
         funcao: this.candidato.funcao,
-        status: this.candidato.status
+        status: this.candidato.status,
       });
     });
   }
 
   atualizar() {
-    this.candidatoService.update(this.form.value, this.candidato._id).subscribe(
-      (res) => {
-        console.log(res);
-        this.onSuccess();
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    //.subscribe(result => this.onSuccess(), error => this.onError());
-    //this.router.navigate(['candidato'], {relativeTo:this.route});
+    if (this.form.status == 'INVALID') {
+      this.form.get('nome')?.markAllAsTouched();
+      this.form.get('cpf')?.markAllAsTouched();
+      this.form.get('data_nascimento')?.markAllAsTouched();
+      this.form.get('email')?.markAllAsTouched();
+      this.form.get('telefone')?.markAllAsTouched();
+      this.form.get('escolaridade')?.markAllAsTouched();
+      this.form.get('funcao')?.markAllAsTouched();
+    } else {
+      this.candidatoService
+        .update(this.form.value, this.candidato._id)
+        .subscribe(
+          (res) => {
+            console.log(res);
+            this.onSuccess();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+    }
   }
 
   onCancel() {
@@ -92,7 +105,9 @@ export class AdminEditarCandidatoComponent implements OnInit {
   }
 
   private onSuccess() {
-    this.snackBar.open('Candidato atualizado com sucesso!', '', { duration: 5000 });
+    this.snackBar.open('Candidato atualizado com sucesso!', '', {
+      duration: 5000,
+    });
     this.onCancel();
   }
 
@@ -100,15 +115,7 @@ export class AdminEditarCandidatoComponent implements OnInit {
     this.snackBar.open('Erro ao salvar curso.', '', { duration: 5000 });
   }
 
-  verificaValidTouched(campo:any){
-    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched
+  verificaValidTouched(campo: any) {
+    return !this.form.get(campo)?.valid && this.form.get(campo)?.touched;
   }
-
-  aplicaCssErro(campo:any){
-    return {
-      'has-erro': this.verificaValidTouched(campo),
-      'has-feedback': this.verificaValidTouched(campo)
-    }
-  }
-
 }
