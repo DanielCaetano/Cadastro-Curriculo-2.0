@@ -43,13 +43,14 @@
 
     <!-- Cpf Column -->
     <ng-container matColumnDef="cpf">
-      <th mat-header-cell *matHeaderCellDef>CPF</th>
-      <td mat-cell *matCellDef="let candidato">
+      <th mat-header-cell *matHeaderCellDef >CPF</th>
+      <td mat-cell
+       *matCellDef="let candidato">
         {{ candidato.cpf }}
-      </td> </ng-container
-    >]
+      </td>
+    </ng-container>
 
-    <!-- Contato Column -->
+    <!-- Telefone Column -->
     <ng-container matColumnDef="telefone">
       <th mat-header-cell *matHeaderCellDef>Telefone</th>
       <td mat-cell *matCellDef="let candidato">{{ candidato.telefone }}</td>
@@ -67,14 +68,15 @@
 
       <mat-cell *matCellDef="let candidato">
         <button
-          mat-icon-button
+        mat-mini-fab
           class="edit"
           aria-label="Editar candidato"
           routerLink="editar/{{ candidato._id }}"
         >
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button class="delete" aria-label="Deletar candidato">
+        <button mat-mini-fab class="delete" aria-label="Deletar candidato">
+
           <mat-icon (click)="onDelete(candidato._id)">delete</mat-icon>
         </button>
       </mat-cell>

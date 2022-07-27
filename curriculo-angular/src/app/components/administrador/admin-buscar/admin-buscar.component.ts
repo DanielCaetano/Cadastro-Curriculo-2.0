@@ -72,6 +72,10 @@ export class AdminBuscarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.iniciarGraficos()
+  }
+
+  iniciarGraficos(){
     this.graficoPia.start(['Aguardando', 'Aprovado', 'Reprovado'], 'status');
     this.graficoPia.obterDados().subscribe((dados) => {
       this.dadosPia = dados;
@@ -170,6 +174,12 @@ export class AdminBuscarComponent implements OnInit {
     this.candidatoService.deletar(id).subscribe(
       (res) => {
         console.log(res);
+        this.candidatos = this.candidatoService.listar().pipe(
+          catchError((error) => {
+            this.onError('Erro ao carregar lista de candidatos');
+            return of([]);
+          })
+        );
         this.onSuccess();
       },
       (error) => {

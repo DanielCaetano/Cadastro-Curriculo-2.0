@@ -12,29 +12,29 @@
             required
             type="email"
           />
+          <mat-error *ngIf="form.controls['email'].hasError('required')">
+            Email obrigatoria.
+          </mat-error>
         </mat-form-field>
+
       </p>
 
       <p>
         <mat-form-field>
           <input
-            formControlName="password"
+            formControlName="senha"
             matInput
-            placeholder="Password"
+            placeholder="Senha"
             required
             type="password"
           />
 
-          <mat-hint>
-            CAUTION: Do not reuse any of your existing password.
-          </mat-hint>
-
-          <mat-error *ngIf="form.controls['password'].hasError('required')">
-            Password is required.
+          <mat-error *ngIf="form.controls['senha'].hasError('required')">
+            Senha obrigatoria.
           </mat-error>
 
-          <mat-error *ngIf="form.controls['password'].hasError('minlength')">
-            Password should contain at least 10 characters.
+          <mat-error *ngIf="form.controls['senha'].hasError('minlength')">
+            Senha deve ter pelo menos 8 caracteres.
           </mat-error>
         </mat-form-field>
       </p>
@@ -44,7 +44,7 @@
       </p>
 
       <p>
-        <a mat-button>Forgot password?</a>
+        <a mat-button>Esqueceu a senha?</a>
       </p>
     </form>
   </mat-card-content>

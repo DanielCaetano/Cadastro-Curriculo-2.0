@@ -22,21 +22,38 @@ export class CandidatoCadastroComponent implements OnInit {
   ) {
     this.form = this.formBuilder.group({
       nome: ['', Validators.compose([Validators.required])],
-      cpf: ['', Validators.compose([Validators.required, Validacoes.ValidaCpf])],
-      data_nascimento: [null],
+      cpf: [
+        '',
+        Validators.compose([Validators.required, Validacoes.ValidaCpf]),
+      ],
+      data_nascimento: ['', Validators.compose([Validacoes.MaiorQue18Anos])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      telefone: [null],
-      escolaridade: [null],
-      funcao: [null],
+      telefone: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(11)]),
+      ],
+      escolaridade: ['', Validators.compose([Validators.required])],
+      funcao: ['', Validators.compose([Validators.required])],
     });
   }
 
   ngOnInit(): void {}
 
   onSubmit() {
-    this.candidatoService.cadastrar(this.form.value).subscribe(
-      result => this.onSuccess(), error => this.onError());
-    this.router.navigate(['candidato']);
+    if (this.form.status == 'INVALID') {
+      this.form.get('nome')?.markAllAsTouched();
+      this.form.get('cpf')?.markAllAsTouched();
+      this.form.get('data_nascimento')?.markAllAsTouched();
+      this.form.get('email')?.markAllAsTouched();
+      this.form.get('telefone')?.markAllAsTouched();
+      this.form.get('escolaridade')?.markAllAsTouched();
+      this.form.get('funcao')?.markAllAsTouched();
+    } else {
+      this.candidatoService.cadastrar(this.form.value).subscribe(
+        (result) => this.onSuccess(),
+        (error) => this.onError()
+      );
+    }
   }
 
   onCancel() {

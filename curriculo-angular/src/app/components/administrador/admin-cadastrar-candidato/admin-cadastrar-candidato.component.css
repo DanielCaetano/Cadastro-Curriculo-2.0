@@ -43,3 +43,16 @@
   display: block;
 }
 
+.sucesso {
+  background-color: rgb(111, 228, 56);
+  color: rgb(0, 0, 0);
+  margin-left: .5rem;
+  border: solid green;
+}
+.cancelar {
+  background-color: rgb(201, 5, 5);;
+  color: rgb(0, 0, 0);
+  margin-left: .5rem;
+  border: solid red;
+}
+

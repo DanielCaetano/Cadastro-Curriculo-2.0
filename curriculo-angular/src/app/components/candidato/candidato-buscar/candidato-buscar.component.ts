@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Candidato } from './../../../model/candidato/candidato';
 import { catchError, Observable, of } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +25,8 @@ export class CandidatoBuscarComponent implements OnInit {
     private candidatoService: CandidatoService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
 
   ) {
     this.candidatos = this.candidatoService.listar().pipe(
@@ -54,7 +56,18 @@ export class CandidatoBuscarComponent implements OnInit {
 
   onBuscar(){
     console.log(this.form.value);
-    this.candidatos = this.candidatoService.bucarCpf(this.form.value.cpf);
+    candidatoCPF: Observable<Candidato[]>;
+    const candidatoCPF  = this.candidatoService.bucarCpf(this.form.value.cpf);
+    if(candidatoCPF){
+      this.candidatos = candidatoCPF
+      this.candidatos.forEach(element => {
+        console.log("Element: "+element)
+      });
+    }else{
+      this.snackBar.open('Cadidato não encontrado', '', { duration: 5000 });
+    }
+
+
   }
 
   ngOnInit(): void {

@@ -1,6 +1,5 @@
 <mat-card class="card">
   <mat-card-title class="title"><h1>Cadastrar candidato</h1></mat-card-title>
-
   <mat-card-content>
     <form [formGroup]="form">
       <mat-error
@@ -73,7 +72,7 @@
             >Data obrigatorio</small
           >
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Data nascimento</mat-label>
+            <mat-label>Data nascimento*</mat-label>
             <input
               matInput
               #input
@@ -97,7 +96,7 @@
         >Email obrigatorio</small
       >
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Email</mat-label>
+        <mat-label>Email*</mat-label>
         <input
           matInput
           #input
@@ -124,7 +123,7 @@
             Telefone obrigatorio
           </mat-error>
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Telefone</mat-label>
+            <mat-label>Telefone*</mat-label>
             <input
               matInput
               #input
@@ -155,11 +154,10 @@
             Escolaridade obrigatorio
           </mat-error>
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Escolaridade</mat-label>
+            <mat-label>Escolaridade*</mat-label>
             <mat-select formControlName="escolaridade">
               <mat-option value="Analfabeto">Analfabeto</mat-option>
-              <mat-option value="Fundamental">Fundamental</mat-option>
-              <mat-option value="Completo">Completo</mat-option>
+              <mat-option value="Fundamental Completo">Fundamental Completo</mat-option>
               <mat-option value="Médio Incompleto">Médio Incompleto</mat-option>
               <mat-option value="Médio Completo">Médio Completo</mat-option>
               <mat-option value="Superior Incompleto"
@@ -193,7 +191,7 @@
         Função obrigatorio
       </mat-error>
       <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Função</mat-label>
+        <mat-label>Função*</mat-label>
         <input
           matInput
           #input
@@ -205,7 +203,7 @@
     </form>
   </mat-card-content>
   <mat-card-actions class="acoes">
-    <button mat-raised-button (click)="onSubmit()">Salvar</button>
-    <button mat-button (click)="onCancel()">Cancelar</button>
+    <button class="sucesso" mat-raised-button (click)="onSubmit()">Cadastrar</button>
+    <button class="cancelar"mat-button (click)="onCancel()">Cancelar</button>
   </mat-card-actions>
 </mat-card>

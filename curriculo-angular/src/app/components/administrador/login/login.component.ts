@@ -17,23 +17,15 @@ export class LoginComponent{
     email: ['',
       [Validators.email, Validators.required],
     ],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    senha: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   constructor(private candidatoService: CandidatoService, private fb: FormBuilder, private router: Router,) {}
 
   onSubmit(): void {
-    console.log("ENVIando "+this.form.valid)
     if (this.form.valid) {
-
       this.router.navigate(['adm']);
       //this.candidatoService.login(this.form.value);
     }
-  }
-  login(log:string, senha:string):Boolean{
-    if(log == this.email){
-      return true;
-    }
-    return false;
   }
 }
